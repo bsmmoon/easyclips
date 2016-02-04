@@ -32,6 +32,7 @@ public class Main {
 			BufferedReader br = new BufferedReader(new FileReader(COMMAND_DIR));
 			String command = null;
 			while ((command = br.readLine()) != null) {
+				System.out.println(command + " >> ");
 				System.out.println(clips.eval(command));
 			}
 			br.close();
