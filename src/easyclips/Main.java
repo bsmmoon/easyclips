@@ -9,8 +9,10 @@ import java.util.Scanner;
 import net.sf.clipsrules.jni.*;
 
 public class Main {
-	boolean initialised = false;
-	Environment clips;
+	private static Scanner scan = new Scanner(System.in);
+	
+	private boolean initialised = false;
+	private Environment clips;
 	
 	public void run() {
 		init();
@@ -28,17 +30,24 @@ public class Main {
 			return;
 		}
 
+		String command = null;
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(COMMAND_DIR));
-			String command = null;
 			while ((command = br.readLine()) != null) {
-				System.out.println(command + " >> ");
+				System.out.println("CLIPS> " + command);
 				System.out.println(clips.eval(command));
 			}
 			br.close();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return;
+		}
+		
+		while (true) {
+			System.out.print("CLIPS> ");
+			command = scan.nextLine();
+			if (command.equals("exit")) break;
+			System.out.println(clips.eval(command));
 		}
 	}
 	
@@ -48,14 +57,15 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Scanner scan = new Scanner(System.in);
 		Main problem = new Main();
 		
 		while (true) {
+			System.out.println();
+			System.out.println("////////// Session Starts //////////");
 			System.out.print("Press Enter to execute...");
 			scan.nextLine();
 			problem.run();
+			System.out.println("//////////  Session Ends  //////////");
 		}
 	}
 }
